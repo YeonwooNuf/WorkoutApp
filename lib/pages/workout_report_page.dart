@@ -122,6 +122,7 @@ class _WorkoutRecordPageState extends State<WorkoutRecordPage> {
       ),
     );
   }
+
   Widget _buildDateTimePicker(String label, DateTime date, TimeOfDay time) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,16 +137,25 @@ class _WorkoutRecordPageState extends State<WorkoutRecordPage> {
             await _selectTime(context);
           },
           child: Container(
-            width: 206, // 날짜 박스 너비 설정
-            padding: EdgeInsets.symmetric(
-                horizontal: 8.0, vertical: 4.0), // 내부 여백 설정
+            width: 206, // 컨테이너 너비 조정
+            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
-              color: Colors.grey[800], // 배경색 설정
-              borderRadius: BorderRadius.circular(8.0), // 모서리 둥글게 설정
+              color: Colors.grey[800],
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Text(
-              "${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')} ${time.format(context)}",
-              style: TextStyle(color: Colors.white, fontSize: 19),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')}",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                SizedBox(height: 4), // 줄 간격 추가
+                Text(
+                  time.format(context),
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+              ],
             ),
           ),
         ),
