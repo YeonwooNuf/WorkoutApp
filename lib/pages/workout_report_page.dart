@@ -46,6 +46,29 @@ class _WorkoutRecordPageState extends State<WorkoutRecordPage> {
     }
   }
 
+  // DB로 수정해야함
+  void _saveWorkoutRecord() {
+    // 저장할 데이터
+    final workoutData = {
+      "date": "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}",
+      "time": selectedTime.format(context),
+      "category": selectedCategory,
+    };
+
+    // 예제: 현재는 콘솔에 출력, 이후 DB 저장으로 변경 가능
+    print("운동 기록 저장: $workoutData");
+
+    // 저장 후 메시지 표시 (Flutter SnackBar)
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("운동 기록이 저장되었습니다."),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.greenAccent,
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +114,28 @@ class _WorkoutRecordPageState extends State<WorkoutRecordPage> {
 
             // 상세 기록 입력 필드
             _buildDetailInput(),
+
+            Spacer(), // 남은 공간을 채워서 버튼이 아래에 오도록 설정
+
+            // 🚀 저장하기 버튼 추가
+            SizedBox(
+              width: double.infinity, // 전체 너비 차지
+              child: ElevatedButton(
+                onPressed: _saveWorkoutRecord, // 저장 함수 호출
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.greenAccent, // 버튼 색상
+                  padding: EdgeInsets.symmetric(vertical: 14.0), // 패딩 추가
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0), // 둥근 모서리
+                  ),
+                ),
+                child: Text(
+                  "저장하기",
+                  style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(height: 16), // 버튼과 하단 간격 추가
           ],
         ),
       ),
